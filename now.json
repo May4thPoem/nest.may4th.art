@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "may4th-nest-api",
+  "alias": "nest.may4th.art",
+  "env": {
+    "NODE_ENV": "prod"
+  },
+  "builds": [{ "src": "src/main.ts", "use": "@now/node-server" }],
+  "routes": [{ "src": "/.*", "dest": "src/main.ts" }]
+}

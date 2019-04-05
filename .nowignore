@@ -1,0 +1,7 @@
+dist
+node_modules
+
+.lintstagedrc
+.prettierrc
+schema.gql
+yarn-error.log
