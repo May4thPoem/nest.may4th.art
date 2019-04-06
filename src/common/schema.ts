@@ -1,4 +1,4 @@
-export const typeDefs = `
+export default `
   type Query {
     user(id: String!): User!
   }
