@@ -1,7 +1,20 @@
 export const typeDefs = `
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
 type Mutation {
-  signUp(password: String!, email: String!, name: String!): User!
-  logIn(password: String!, email: String!): User!
+  signUp(newUser: CreateUserInput!): Session!
+  logIn(password: String!, email: String!): Session!
+}
+
+type Poem {
+  id: ID!
+  title: String!
+  content: String!
+  author: User!
 }
 
 type Query {
@@ -17,6 +30,5 @@ type User {
   id: ID!
   name: String!
   email: String!
-}
-
+  poems: [Poem!]!
 `

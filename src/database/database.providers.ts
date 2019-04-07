@@ -1,5 +1,6 @@
 import {createConnection, ConnectionOptions} from 'typeorm'
 import {DATABASE_CONNECTION} from '../common/constants'
+import {Poem} from '../poems/poem.entity'
 import {Session} from '../sessions/session.entity'
 import {User} from '../users/user.entity'
 
@@ -14,7 +15,7 @@ const database = (): ConnectionOptions => {
         password:
           '84af7c9419a6b94a2e24dc24a0cb3cb9ba5ff49cf6780eba414defb3ab24768d',
         database: 'df6vg0n6o09tos',
-        entities: [Session, User],
+        entities: [Poem, Session, User],
         synchronize: true,
         ssl: true,
       }
@@ -26,7 +27,7 @@ const database = (): ConnectionOptions => {
         username: 'gabriel',
         password: '',
         database: 'may4thnestapi',
-        entities: [Session, User],
+        entities: [__dirname + "/../**/*.entity.{ts,js}"],
         synchronize: true,
       }
   }

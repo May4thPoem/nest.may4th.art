@@ -1,5 +1,6 @@
 import {Field, ID, ObjectType} from 'type-graphql'
-import {Column, Entity, PrimaryGeneratedColumn, Unique} from 'typeorm'
+import {Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany} from 'typeorm'
+import {Poem} from '../poems/poem.entity'
 
 @ObjectType()
 @Unique('user_validation', ['name', 'email'])
@@ -16,6 +17,10 @@ export class User {
   @Field()
   @Column()
   email: string
+
+  @Field(type => [Poem])
+  @OneToMany(type => Poem, poem => poem.author, { lazy: true })
+  poems: Promise<Poem[]> | Poem[]
 
   @Column()
   password_digest: string
