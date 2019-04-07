@@ -2,13 +2,10 @@ import {NotFoundException} from '@nestjs/common'
 import {Args, Mutation, Query, Resolver} from '@nestjs/graphql'
 import {Session} from './session.entity'
 import {SessionsService} from './sessions.service'
-import {User} from '../users/user.entity'
 
 @Resolver(of => Session)
 export class SessionsResolver {
-  constructor(
-    private readonly sessionsService: SessionsService,
-  ) {}
+  constructor(private readonly sessionsService: SessionsService) {}
 
   @Mutation(returns => Session)
   async logIn(

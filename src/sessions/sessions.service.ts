@@ -17,7 +17,7 @@ export class SessionsService {
   }: {
     email: string
     password: string
-  }): Promise<User|boolean> {
+  }): Promise<User | boolean> {
     const passwordDigest = createHash('sha1')
       .update(password)
       .digest('hex')

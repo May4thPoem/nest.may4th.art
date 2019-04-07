@@ -2,6 +2,7 @@ import {NotFoundException} from '@nestjs/common'
 import {Args, Mutation, Query, Resolver} from '@nestjs/graphql'
 import {User} from './user.entity'
 import {UsersService} from './users.service'
+import { CreateUserInput } from './dto/createUser.input';
 
 @Resolver(of => User)
 export class UsersResolver {
@@ -18,14 +19,12 @@ export class UsersResolver {
 
   @Mutation(returns => User)
   async signUp(
-    @Args('name') name: string,
-    @Args('email') email: string,
-    @Args('password') password: string,
+    @Args('newUser') newUser: CreateUserInput, 
   ) {
     return await this.usersService.createUser({
-      name: name,
-      email: email,
-      password: password,
+      name: newUser.name,
+      email: newUser.email,
+      password: newUser.password,
     })
   }
 }

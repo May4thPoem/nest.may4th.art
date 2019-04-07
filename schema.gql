@@ -3,8 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
 type Mutation {
-  signUp(password: String!, email: String!, name: String!): User!
+  signUp(newUser: CreateUserInput!): User!
   logIn(password: String!, email: String!): Session!
 }
 
