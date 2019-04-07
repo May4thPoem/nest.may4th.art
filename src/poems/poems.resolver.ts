@@ -1,6 +1,8 @@
-import {NotFoundException} from '@nestjs/common'
-import {Args, Mutation, Query, Resolver} from '@nestjs/graphql'
+import {NotFoundException, UseGuards} from '@nestjs/common'
+import {Args, Context, Mutation, Query, Resolver} from '@nestjs/graphql'
 import {AuthService} from '../auth/auth.service'
+import {GqlAuthGuard} from '../auth/guards/gql.auth'
+import {CreatePoemInput} from './dto/createPoem.input'
 import {Poem} from './poem.entity'
 import {PoemsService} from './poems.service'
 
@@ -21,15 +23,15 @@ export class PoemsResolver {
   }
 
   @Mutation(returns => Poem)
+  @UseGuards(GqlAuthGuard)
   async postPoem(
-    @Args('token') token: string,
-    @Args('title') title: string,
-    @Args('content') content: string,
+    @Context() context,
+    @Args('newPoem') newPoem: CreatePoemInput,
   ): Promise<Poem> {
     const poem = await this.poemsService.createPoem({
-      title: title,
-      content: content,
-      author: await this.authService.getCurrentUser(token),
+      title: newPoem.title,
+      content: newPoem.content,
+      author: context.req.user,
     })
     return poem
   }

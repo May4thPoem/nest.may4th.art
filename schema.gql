@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreatePoemInput {
+  title: String!
+  content: String!
+}
+
 input CreateUserInput {
   name: String!
   email: String!
@@ -17,7 +22,7 @@ scalar DateTime
 type Mutation {
   signUp(newUser: CreateUserInput!): Session!
   logIn(password: String!, email: String!): Session!
-  postPoem(content: String!, title: String!, token: String!): Poem!
+  postPoem(newPoem: CreatePoemInput!): Poem!
 }
 
 type Poem {

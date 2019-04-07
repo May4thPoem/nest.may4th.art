@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty, MaxLength, MinLength} from 'class-validator'
+import {IsNotEmpty, MaxLength} from 'class-validator'
 import {Field, InputType} from 'type-graphql'
 
 @InputType()
@@ -9,6 +9,5 @@ export class CreatePoemInput {
   title: string
 
   @Field()
-  @IsEmail()
   content: string
 }
