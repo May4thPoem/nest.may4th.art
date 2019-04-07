@@ -10,7 +10,7 @@ input CreateUserInput {
 }
 
 type Mutation {
-  signUp(newUser: CreateUserInput!): User!
+  signUp(newUser: CreateUserInput!): Session!
   logIn(password: String!, email: String!): Session!
 }
 

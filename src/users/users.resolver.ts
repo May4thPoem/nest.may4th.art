@@ -1,12 +1,17 @@
 import {NotFoundException} from '@nestjs/common'
 import {Args, Mutation, Query, Resolver} from '@nestjs/graphql'
+import {AuthService} from '../auth/auth.service'
+import {Session} from '../sessions/session.entity'
 import {User} from './user.entity'
 import {UsersService} from './users.service'
-import { CreateUserInput } from './dto/createUser.input';
+import {CreateUserInput} from './dto/createUser.input'
 
 @Resolver(of => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Query(returns => User)
   async user(@Args('id') id: string): Promise<User> {
@@ -17,14 +22,17 @@ export class UsersResolver {
     return user
   }
 
-  @Mutation(returns => User)
-  async signUp(
-    @Args('newUser') newUser: CreateUserInput, 
-  ) {
-    return await this.usersService.createUser({
+  @Mutation(returns => Session)
+  async signUp(@Args('newUser') newUser: CreateUserInput): Promise<Session> {
+    const user = await this.usersService.createUser({
       name: newUser.name,
       email: newUser.email,
       password: newUser.password,
     })
+    const token = await this.authService.createToken(newUser.email)
+    return {
+      token: token,
+      user: user,
+    }
   }
 }

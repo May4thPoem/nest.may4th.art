@@ -1,11 +1,15 @@
 import {NotFoundException} from '@nestjs/common'
 import {Args, Mutation, Query, Resolver} from '@nestjs/graphql'
+import {AuthService} from '../auth/auth.service'
 import {Session} from './session.entity'
 import {SessionsService} from './sessions.service'
 
 @Resolver(of => Session)
 export class SessionsResolver {
-  constructor(private readonly sessionsService: SessionsService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly sessionsService: SessionsService,
+  ) {}
 
   @Mutation(returns => Session)
   async logIn(
@@ -19,8 +23,9 @@ export class SessionsResolver {
     if (!user) {
       throw new NotFoundException(email)
     }
+    const token = this.authService.createToken(email)
     return {
-      token: 'token',
+      token: token,
       user: user,
     }
   }
