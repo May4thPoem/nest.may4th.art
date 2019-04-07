@@ -3,8 +3,18 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Mutation {
+  signUp(password: String!, email: String!, name: String!): User!
+  logIn(password: String!, email: String!): Session!
+}
+
 type Query {
   user(id: String!): User!
+}
+
+type Session {
+  token: String!
+  user: User!
 }
 
 type User {

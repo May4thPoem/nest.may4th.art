@@ -1,7 +1,8 @@
 import {Field, ID, ObjectType} from 'type-graphql'
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, PrimaryGeneratedColumn, Unique} from 'typeorm'
 
 @ObjectType()
+@Unique('user_validation', ['name', 'email'])
 @Entity()
 export class User {
   @Field(type => ID)

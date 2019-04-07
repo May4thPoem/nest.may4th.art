@@ -2,37 +2,29 @@ import {Inject, Injectable} from '@nestjs/common'
 import {createHash} from 'crypto'
 import {Repository} from 'typeorm'
 import {USERS_REPOSITORY} from '../common/constants'
-import {User} from './user.entity'
+import {User} from '../users/user.entity'
 
 @Injectable()
-export class UsersService {
+export class SessionsService {
   constructor(
     @Inject(USERS_REPOSITORY)
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async createUser({
-    name,
+  async logIn({
     email,
     password,
   }: {
-    name: string
     email: string
     password: string
-  }): Promise<User> {
+  }): Promise<User|boolean> {
     const passwordDigest = createHash('sha1')
       .update(password)
       .digest('hex')
-    const newUser = this.usersRepository.create({
-      name: name,
-      email: email,
-      password_digest: passwordDigest,
+    const user = await this.usersRepository.findOne({
+      where: {email: email},
     })
-    await this.usersRepository.insert(newUser)
-    return newUser
-  }
-
-  async findUserById(id: string): Promise<User> {
-    return await this.usersRepository.findOne(id)
+    if (user && user.password_digest === passwordDigest) return user
+    else return false
   }
 }
