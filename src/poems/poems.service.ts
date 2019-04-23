@@ -26,6 +26,10 @@ export class PoemsService {
     return newPoem
   }
 
+  async findAllPoems(): Promise<Poem[]> {
+    return await this.poemsRepository.find()
+  }
+
   async findPoemById(id: string): Promise<Poem> {
     return await this.poemsRepository.findOne(id)
   }

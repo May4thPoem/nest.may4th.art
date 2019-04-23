@@ -36,6 +36,7 @@ type Poem {
 type Query {
   user(id: String!): User!
   poem(id: String!): Poem!
+  poems: [Poem!]!
 }
 
 type Session {

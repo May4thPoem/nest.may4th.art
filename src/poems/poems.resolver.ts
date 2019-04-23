@@ -22,6 +22,15 @@ export class PoemsResolver {
     return poem
   }
 
+  @Query(returns => [Poem])
+  async poems(): Promise<Poem[]> {
+    const poems = await this.poemsService.findAllPoems()
+    if (!poems) {
+      throw new NotFoundException()
+    }
+    return poems
+  }
+
   @Mutation(returns => Poem)
   @UseGuards(GqlAuthGuard)
   async postPoem(
