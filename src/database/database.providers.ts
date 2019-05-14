@@ -27,7 +27,7 @@ const database = (): ConnectionOptions => {
         username: 'gabriel',
         password: '',
         database: 'may4thnestapi',
-        entities: [__dirname + "/../**/*.entity.{ts,js}"],
+        entities: [__dirname + '/../**/*.entity.{ts,js}'],
         synchronize: true,
       }
   }

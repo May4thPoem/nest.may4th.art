@@ -29,10 +29,10 @@ export class UsersResolver {
       email: newUser.email,
       password: newUser.password,
     })
-    const token = await this.authService.createToken(newUser.email)
+    const jwt = await this.authService.createToken(newUser.email)
     return {
-      token: token,
-      user: user,
+      jwt,
+      user,
     }
   }
 }

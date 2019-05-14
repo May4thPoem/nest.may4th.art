@@ -23,10 +23,10 @@ export class SessionsResolver {
     if (!user) {
       throw new NotFoundException(email)
     }
-    const token = this.authService.createToken(email)
+    const jwt = this.authService.createToken(email)
     return {
-      token: token,
-      user: user,
+      jwt,
+      user,
     }
   }
 }

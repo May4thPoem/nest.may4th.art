@@ -1,9 +1,10 @@
 import {forwardRef, Module} from '@nestjs/common'
 import {JwtModule} from '@nestjs/jwt'
+import {PassportModule} from '@nestjs/passport'
 import {AuthService} from './auth.service'
 import {JwtStrategy} from './jwt.strategy'
 import {UsersModule} from '../users/users.module'
-import {PassportModule} from '@nestjs/passport'
+import {DEFAULT_EXPIRATION_TIME_IN_SECONDS} from '../common/constants'
 
 @Module({
   imports: [
@@ -11,7 +12,9 @@ import {PassportModule} from '@nestjs/passport'
     JwtModule.register({
       secretOrPrivateKey: process.env.SECRET_KEY || 'secretKey',
       signOptions: {
-        expiresIn: parseInt(process.env.EXPIRATION_TIME, 10) || 3600,
+        expiresIn:
+          parseInt(process.env.EXPIRATION_TIME, 10) ||
+          DEFAULT_EXPIRATION_TIME_IN_SECONDS,
       },
     }),
     forwardRef(() => UsersModule),

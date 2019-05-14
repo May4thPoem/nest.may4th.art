@@ -19,6 +19,11 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type JsonWebToken {
+  token: String!
+  expiresAt: Float!
+}
+
 type Mutation {
   signUp(newUser: CreateUserInput!): Session!
   logIn(password: String!, email: String!): Session!
@@ -40,7 +45,7 @@ type Query {
 }
 
 type Session {
-  token: String!
+  jwt: JsonWebToken!
   user: User!
 }
 

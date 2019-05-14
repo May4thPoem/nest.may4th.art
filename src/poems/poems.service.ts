@@ -11,10 +11,14 @@ export class PoemsService {
     private readonly poemsRepository: Repository<Poem>,
   ) {}
 
-  async createPoem({author, title, content}: {
-    author: User,
-    title: string,
-    content: string,
+  async createPoem({
+    author,
+    title,
+    content,
+  }: {
+    author: User
+    title: string
+    content: string
   }): Promise<Poem> {
     const newPoem = this.poemsRepository.create({
       author: author,

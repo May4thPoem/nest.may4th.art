@@ -3,6 +3,8 @@ import {Injectable} from '@nestjs/common'
 import {UsersService} from '../users/users.service'
 import {JwtPayload} from './interfaces/jwt-payload.interface'
 import {User} from '../users/user.entity'
+import {JsonWebToken} from './jwt.entity'
+import {DEFAULT_EXPIRATION_TIME_IN_SECONDS} from '../common/constants'
 
 @Injectable()
 export class AuthService {
@@ -11,11 +13,12 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async createToken(email: string): Promise<string> {
-    // In the real-world app you shouldn't expose this method publicly
-    // instead, return a token once you verify user credentials
+  async createToken(email: string): Promise<JsonWebToken> {
     const user: JwtPayload = {email: email}
-    return this.jwtService.sign(user)
+    return {
+      token: this.jwtService.sign(user),
+      expiresAt: Date.now() + DEFAULT_EXPIRATION_TIME_IN_SECONDS,
+    }
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
