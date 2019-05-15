@@ -9,5 +9,9 @@ export class CreatePoemInput {
   title: string
 
   @Field()
+  @IsNotEmpty()
   content: string
+
+  @Field({defaultValue: false})
+  isPublic?: boolean
 }

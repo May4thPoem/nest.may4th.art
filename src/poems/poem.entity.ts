@@ -17,9 +17,17 @@ export class Poem {
   @Column('text')
   content: string
 
+  @Field({defaultValue: false})
+  @Column()
+  isPublic: boolean
+
   @Field()
   @Column()
   createdAt: Date
+
+  @Field()
+  @Column()
+  updatedAt: Date
 
   @Field(type => User)
   @ManyToOne(type => User, {lazy: true})

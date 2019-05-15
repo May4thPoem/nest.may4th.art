@@ -23,8 +23,8 @@ export class PoemsResolver {
   }
 
   @Query(returns => [Poem])
-  async poems(): Promise<Poem[]> {
-    const poems = await this.poemsService.findAllPoems()
+  async allPublicPoems(): Promise<Poem[]> {
+    const poems = await this.poemsService.findAllPublicPoems()
     if (!poems) {
       throw new NotFoundException()
     }
@@ -41,6 +41,7 @@ export class PoemsResolver {
       title: newPoem.title,
       content: newPoem.content,
       author: context.req.user,
+      isPublic: newPoem.isPublic || false,
     })
     return poem
   }

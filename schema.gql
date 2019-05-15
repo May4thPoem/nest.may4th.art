@@ -6,6 +6,7 @@
 input CreatePoemInput {
   title: String!
   content: String!
+  isPublic: Boolean = false
 }
 
 input CreateUserInput {
@@ -34,14 +35,16 @@ type Poem {
   id: ID!
   title: String!
   content: String!
+  isPublic: Boolean
   createdAt: DateTime!
+  updatedAt: DateTime!
   author: User!
 }
 
 type Query {
   user(id: String!): User!
   poem(id: String!): Poem!
-  poems: [Poem!]!
+  allPublicPoems: [Poem!]!
 }
 
 type Session {
