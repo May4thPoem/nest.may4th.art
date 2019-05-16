@@ -22,6 +22,7 @@ type Mutation {
   signUp(newUser: CreateUserInput!): Session!
   logIn(password: String!, email: String!): Session!
   postPoem(newPoem: CreatePoemInput!): Poem!
+  deletePoem(id: Float!): Float!
 }
 
 type Poem {
@@ -36,8 +37,9 @@ type Poem {
 
 type Query {
   user(id: String!): User!
-  poem(id: String!): Poem!
+  poem(id: Float!): Poem!
   allPublicPoems: [Poem!]!
+  myPoems: [Poem!]!
 }
 
 type Session {

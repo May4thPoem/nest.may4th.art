@@ -1,6 +1,5 @@
-import {NotFoundException, UseGuards} from '@nestjs/common'
+import {NotFoundException, UnauthorizedException, UseGuards} from '@nestjs/common'
 import {Args, Context, Mutation, Query, Resolver} from '@nestjs/graphql'
-import {AuthService} from '../auth/auth.service'
 import {GqlAuthGuard} from '../auth/guards/gql.auth'
 import {CreatePoemInput} from './dto/createPoem.input'
 import {Poem} from './poem.entity'
@@ -9,12 +8,11 @@ import {PoemsService} from './poems.service'
 @Resolver('Poems')
 export class PoemsResolver {
   constructor(
-    private readonly authService: AuthService,
     private readonly poemsService: PoemsService,
   ) {}
 
   @Query(returns => Poem)
-  async poem(@Args('id') id: string): Promise<Poem> {
+  async poem(@Args('id') id: number): Promise<Poem> {
     const poem = await this.poemsService.findPoemById(id)
     if (!poem) {
       throw new NotFoundException(id)
@@ -31,6 +29,12 @@ export class PoemsResolver {
     return poems
   }
 
+  @Query(returns => [Poem])
+  @UseGuards(GqlAuthGuard)
+  async myPoems(@Context() context): Promise<Poem[]> {
+    return await this.poemsService.findPoemsByUser(context.req.user)
+  }
+
   @Mutation(returns => Poem)
   @UseGuards(GqlAuthGuard)
   async postPoem(
@@ -44,5 +48,19 @@ export class PoemsResolver {
       isPublic: newPoem.isPublic || false,
     })
     return poem
+  }
+
+  @Mutation(returns => Number)
+  @UseGuards(GqlAuthGuard)
+  async deletePoem(
+    @Context() context,
+    @Args('id') id: number,
+  ): Promise<number> {
+    const poem = await this.poemsService.findPoemById(id)
+    if (!poem) throw new NotFoundException(id)
+    const author = await poem.author
+    if (author.id === context.req.user.id) await this.poemsService.deletePoem(id)
+    else throw new UnauthorizedException(`You cannot delete poems belonging to others!`)
+    return id
   }
 }
