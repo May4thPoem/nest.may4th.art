@@ -9,12 +9,12 @@ const database = (): ConnectionOptions => {
     case 'prod':
       return {
         type: 'postgres',
-        host: 'ec2-23-21-65-173.compute-1.amazonaws.com',
+        host: process.env.PG_HOST,
         port: 5432,
-        username: 'djuwjoshjnjtzv',
+        username: process.env.PG_USER,
         password:
-          '84af7c9419a6b94a2e24dc24a0cb3cb9ba5ff49cf6780eba414defb3ab24768d',
-        database: 'df6vg0n6o09tos',
+          process.env.PG_PASSWORD,
+        database: process.env.PG_DATABASE,
         entities: [Poem, Session, User],
         synchronize: true,
         ssl: true,

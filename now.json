@@ -3,7 +3,11 @@
   "name": "may4th-nest-api",
   "alias": "nest.may4th.art",
   "env": {
-    "NODE_ENV": "prod"
+    "NODE_ENV": "prod",
+    "PG_HOST": "@may4th-pg-host",
+    "PG_USER": "@may4th-pg-user",
+    "PG_PASSWORD": "@may4th-pg-password",
+    "PG_DATABASE": "@may4th-pg-database"
   },
   "builds": [{ "src": "src/main.ts", "use": "@now/node-server" }],
   "routes": [{ "src": "/.*", "dest": "src/main.ts" }]
