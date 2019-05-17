@@ -4,7 +4,7 @@ import {UsersService} from '../users/users.service'
 import {JwtPayload} from './interfaces/jwt-payload.interface'
 import {User} from '../users/user.entity'
 import {JsonWebToken} from './jwt.entity'
-import {DEFAULT_EXPIRATION_TIME_IN_SECONDS} from '../common/constants'
+import {DEFAULT_EXPIRATION_TIME_IN_MILLISECONDS} from '../common/constants'
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
     const user: JwtPayload = {email: email}
     return {
       token: this.jwtService.sign(user),
-      expiresAt: Date.now() + DEFAULT_EXPIRATION_TIME_IN_SECONDS,
+      expiresAt: Date.now() + DEFAULT_EXPIRATION_TIME_IN_MILLISECONDS,
     }
   }
 
