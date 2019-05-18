@@ -12,10 +12,15 @@ export class PoemsResolver {
   ) {}
 
   @Query(returns => Poem)
-  async poem(@Args('id') id: number): Promise<Poem> {
+  async poem(
+    @Args('id') id: number,
+  ): Promise<Poem> {
     const poem = await this.poemsService.findPoemById(id)
     if (!poem) {
       throw new NotFoundException(id)
+    }
+    if (!poem.isPublic) {
+      throw new UnauthorizedException('This is a private poem!')
     }
     return poem
   }
@@ -60,7 +65,7 @@ export class PoemsResolver {
     if (!poem) throw new NotFoundException(id)
     const author = await poem.author
     if (author.id === context.req.user.id) await this.poemsService.deletePoem(id)
-    else throw new UnauthorizedException(`You cannot delete poems belonging to others!`)
+    else throw new UnauthorizedException('You cannot delete poems belonging to others!')
     return id
   }
 }
