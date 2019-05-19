@@ -7,7 +7,7 @@ import {User} from '../users/user.entity'
 export class Poem {
   @Field(type => ID)
   @PrimaryGeneratedColumn()
-  readonly id: number
+  readonly id: string
 
   @Field()
   @Column({length: 100})
