@@ -379,6 +379,13 @@
   dependencies:
     optional "0.1.4"
 
+"@nestjs/typeorm@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-6.1.1.tgz#bf1f45f79a2b498dd33b82c1f5bd04e7797cfec3"
+  integrity sha512-KCtRYiftUfvU4QE0mlhNUHEVfo9LmFHZ7QPcSxgmV00Tf62lGX0P2vJ0Ee6zHrgPuT4TzUn+SkX70ZdeQxio3Q==
+  dependencies:
+    uuid "3.3.2"
+
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
