@@ -34,33 +34,67 @@ export class PoemsService {
     return newPoem
   }
 
-  async deletePoem(id: number) {
-    return await this.poemsRepository.delete({id})
+  async updatePoem({
+    id,
+    author,
+    title,
+    content,
+    isPublic,
+  }: {
+    id: string
+    author: User
+    title: string
+    content: string
+    isPublic?: boolean
+  }): Promise<Poem> {
+    let poem = await this.poemsRepository.findOne(id)
+    poem = {
+      ...poem,
+      author,
+      title,
+      content,
+      isPublic,
+      updatedAt: new Date(),
+    }
+    await this.poemsRepository.update(id, poem)
+    return poem
   }
 
-  async findAllPublicPoems(): Promise<Poem[]> {
+  async deletePoem(id: string) {
+    return await this.poemsRepository.delete(id)
+  }
+
+  async findAllPublicPoems(skip: number, take: number): Promise<Poem[]> {
     return await this.poemsRepository.find({
       where: {
         isPublic: true,
       },
       order: {
-        updatedAt: "DESC",
+        updatedAt: 'DESC',
       },
+      skip,
+      take,
     })
   }
 
-  async findPoemsByUser(user: User): Promise<Poem[]> {
+  async findPoemsByUser(
+    user: User,
+    skip: number,
+    take: number,
+  ): Promise<Poem[]> {
     return await this.poemsRepository.find({
       where: {
         author: user,
       },
       order: {
-        updatedAt: "DESC",
+        updatedAt: 'DESC',
       },
+      skip,
+      take,
     })
   }
 
-  async findPoemById(id: number): Promise<Poem> {
+  async findPoemById(id: string): Promise<Poem> {
     return await this.poemsRepository.findOne(id)
   }
 }
