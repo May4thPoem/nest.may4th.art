@@ -1,5 +1,6 @@
 import {Module} from '@nestjs/common'
 import {GraphQLModule} from '@nestjs/graphql'
+// import {GraphQLISODateTime} from 'type-graphql'
 import {AppController} from './app.controller'
 import {AppService} from './app.service'
 import {AuthModule} from './auth/auth.module'
@@ -17,6 +18,7 @@ const autoSchemaFile = process.env.NODE_ENV === 'prod' ? false : 'schema.gql'
       context: ({req}) => ({req}),
       installSubscriptionHandlers: true,
       autoSchemaFile: autoSchemaFile,
+      // directiveResolvers: {DateTime: GraphQLISODateTime},
       typeDefs: autoSchemaFile ? undefined : typeDefs,
     }),
     AuthModule,

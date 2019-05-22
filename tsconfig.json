@@ -10,7 +10,8 @@
     "target": "esnext",
     "sourceMap": false,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"]
 }

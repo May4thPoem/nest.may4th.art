@@ -21,13 +21,7 @@ export class AuthService {
     }
   }
 
-  async validateUser(payload: JwtPayload): Promise<any> {
-    return await this.usersService.findUserByEmail(payload.email)
-  }
-
-  async getCurrentUser(token: string): Promise<User> {
-    const newToken = token.substring(7)
-    const payload = this.jwtService.decode(newToken) as JwtPayload
+  async validateUser(payload: JwtPayload): Promise<User> {
     return await this.usersService.findUserByEmail(payload.email)
   }
 }

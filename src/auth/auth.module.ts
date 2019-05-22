@@ -10,7 +10,7 @@ import {DEFAULT_EXPIRATION_TIME_IN_SECONDS} from '../common/constants'
   imports: [
     PassportModule.register({defaultStrategy: 'jwt'}),
     JwtModule.register({
-      secretOrPrivateKey: process.env.SECRET_KEY || 'secretKey',
+      secret: process.env.SECRET_KEY || 'secretKey',
       signOptions: {
         expiresIn:
           parseInt(process.env.EXPIRATION_TIME, 10) ||
