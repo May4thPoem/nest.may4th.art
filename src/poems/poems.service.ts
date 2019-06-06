@@ -27,8 +27,8 @@ export class PoemsService {
       title: title,
       content: content,
       isPublic: isPublic,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     })
     await this.poemsRepository.insert(newPoem)
     return newPoem
