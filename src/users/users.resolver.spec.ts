@@ -1,6 +1,6 @@
 import {Test, TestingModule} from '@nestjs/testing'
 import {createHash} from 'crypto'
-import {AuthModule} from '../auth/auth.module'
+import {UsersModule} from './users.module'
 import {UsersResolver} from './users.resolver'
 import {UsersService} from './users.service'
 
@@ -19,8 +19,7 @@ describe('UsersResolver', () => {
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports: [AuthModule],
-      providers: [UsersResolver, UsersService],
+      imports: [UsersModule],
     }).compile()
     appRef = app
 
