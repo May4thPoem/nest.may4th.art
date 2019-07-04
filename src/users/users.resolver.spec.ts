@@ -53,7 +53,9 @@ describe('UsersResolver', () => {
 
       const signUpMutation = await usersResolver.signUp(newUser)
 
-      expect(signUpMutation.user.password_digest).toBe('0a8035bae51f9d673c4d7bafb862d37c5317ab15')
+      expect(signUpMutation.user.password_digest).toBe(
+        '0a8035bae51f9d673c4d7bafb862d37c5317ab15',
+      )
       expect(signUpMutation.jwt.token.length).toBe(159)
     })
   })
