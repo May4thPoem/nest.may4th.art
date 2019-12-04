@@ -15,7 +15,7 @@ const database = (): ConnectionOptions => {
         password: process.env.PG_PASSWORD,
         database: process.env.PG_DATABASE,
         entities: [Poem, Session, User],
-        synchronize: true,
+        synchronize: false,
         ssl: true,
       }
     default:
@@ -26,8 +26,8 @@ const database = (): ConnectionOptions => {
         username: 'gabriel',
         password: '',
         database: 'may4thnestapi',
-        entities: [__dirname + '/../**/*.entity.{ts,js}'],
-        synchronize: true,
+        entities: [Poem, Session, User],
+        synchronize: false,
       }
   }
 }
