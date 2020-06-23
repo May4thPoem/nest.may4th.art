@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "name": "may4th-nest-api",
-  "alias": "nest.may4th.art",
   "env": {
     "NODE_ENV": "prod",
     "PG_HOST": "@may4th-pg-host",
