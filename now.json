@@ -7,8 +7,15 @@
     "PG_HOST": "@may4th-pg-host",
     "PG_USER": "@may4th-pg-user",
     "PG_PASSWORD": "@may4th-pg-password",
-    "PG_DATABASE": "@may4th-pg-database"
+    "PG_DATABASE": "@may4th-pg-database",
+    "NODE_TLS_REJECT_UNAUTHORIZED": "0"
   },
-  "builds": [{ "src": "src/main.ts", "use": "@now/node" }],
-  "routes": [{ "src": "/.*", "dest": "src/main.ts" }]
+  "builds": [{
+    "src": "dist/main.js",
+    "use": "@now/node"
+  }],
+  "routes": [{
+    "src": "/(.*)",
+    "dest": "dist/main.js"
+  }]
 }
