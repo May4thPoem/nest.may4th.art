@@ -9,6 +9,6 @@
     "PG_PASSWORD": "@may4th-pg-password",
     "PG_DATABASE": "@may4th-pg-database"
   },
-  "builds": [{ "src": "src/main.ts", "use": "@now/node-server" }],
+  "builds": [{ "src": "src/main.ts", "use": "@now/node" }],
   "routes": [{ "src": "/.*", "dest": "src/main.ts" }]
 }

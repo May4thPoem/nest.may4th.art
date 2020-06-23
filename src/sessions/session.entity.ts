@@ -1,4 +1,4 @@
-import {Field, ObjectType} from 'type-graphql'
+import {Field, ObjectType} from '@nestjs/graphql'
 import {User} from '../users/user.entity'
 import {JsonWebToken} from '../auth/jwt.entity'
 

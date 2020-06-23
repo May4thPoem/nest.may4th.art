@@ -1,6 +1,0 @@
-dist
-node_modules
-
-.lintstagedrc
-.prettierrc
-yarn-error.log
